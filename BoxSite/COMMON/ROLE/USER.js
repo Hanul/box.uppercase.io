@@ -1,0 +1,1 @@
+BoxSite('ROLE').USER = 'User';

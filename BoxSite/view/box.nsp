@@ -1,2 +1,41 @@
+<%
+	var userData;
+	var boxData;
+	
+	BoxSite.UserModel.get({
+		filter : {
+			username : self.params.username
+		}
+	}, function(savedData) {
+		userData = savedData;
+		
+		BoxSite.BoxModel.get({
+			filter : {
+				userId : userData.id,
+				name : self.params.boxName
+			}
+		}, {
+			notExists : resume,
+			success : function(savedData) {
+				boxData = savedData;
+				resume();
+			}
+		});
+	});
+	pause();
+%>
+<% include('top.nsp'); %>
 body
-	'box'
+	'{{userData.screenname}}'
+	'{{boxData.name}}'
+	'{{boxData.readmeHTML.replace(/'/g, "\\'")}}'
+
+
+
+
+
+
+
+
+
+

@@ -1,2 +1,15 @@
+<%
+	var data;
+	BoxSite.UserModel.get({
+		filter : {
+			username : self.params.username
+		}
+	}, function(savedData) {
+		data = savedData;
+		resume();
+	});
+	pause();
+%>
+<% include('top.nsp'); %>
 body
-	'user'
+	'{{data.screenname}}'

@@ -1,0 +1,38 @@
+<%
+	var sessionKey = cookie('session-key');
+	
+	if (sessionKey !== undefined) {
+		BoxSite.SessionKeyModel.get(sessionKey, {
+			notExists : function() {
+				resume();
+			},
+			success : function(sessionKeyData) {
+				BoxSite.UserModel.get(sessionKeyData.userId, {
+					notExists : function() {
+						resume();
+					},
+					success : function(userData) {
+						self.signedUserData = userData;
+						resume();
+					}
+				});
+			}
+		});
+		pause();
+	}
+	
+	self.checkIsSigned = function() {
+		return self.signedUserData !== undefined && CHECK_IS_IN({
+			array : self.signedUserData.roles,
+			value : BoxSite.ROLE.USER
+		}) === true;
+	};
+	
+	self.checkIsAdmin = function() {
+		return self.signedUserData !== undefined && CHECK_IS_IN({
+			array : self.signedUserData.roles,
+			value : BoxSite.ROLE.ADMIN
+		}) === true;
+	};
+%>
+meta viewport='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'

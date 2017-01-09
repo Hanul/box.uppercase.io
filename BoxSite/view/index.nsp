@@ -1,9 +1,17 @@
-meta viewport='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
+<% include('top.nsp'); %>
 title '{{CONFIG.title}}'
 body
-	h1#logo 'SML'
-	p.content '
-		Simple (HyperText)
-		Markup
-		Language
-	'
+	h1#logo '{{CONFIG.title}}'
+	ul
+		<? self.signedUserData === undefined >
+			li
+				a href='_/join' '회원가입'
+			li
+				a href='_/login' '로그인'
+		</?>
+		<? else >
+			li
+				a href='{{self.signedUserData.screenname}}' '회원 정보'
+			li
+				a href='_/logout' '로그아웃'
+		</?>

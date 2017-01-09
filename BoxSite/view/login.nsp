@@ -1,0 +1,59 @@
+<%
+	var data = {};
+	var isNotValid;
+	
+	if (self.method === 'POST') {
+		data = self.params;
+		
+		BoxSite.UserModel.login(data, {
+			notValid : function() {
+				isNotValid = true;
+				resume();
+			},
+			success : function(userData, sessionKey) {
+				if (data.isToRememberMe === 'true') {
+					cookie('session-key', sessionKey, 365 * 24 * 3600, '/');
+				} else {
+					cookie('session-key', sessionKey, undefined, '/');
+				}
+				redirect('/');
+			}
+		});
+		
+		pause();
+	}
+%>
+<% include('top.nsp'); %>
+title '로그인'
+body
+	h1 '로그인'
+	form method='POST'
+		
+		<? self.method === 'POST' && isNotValid === true >
+			ul.error
+				li '아이디와 비밀번호를 확인해주시기 바랍니다.'
+		</?>
+		
+		p
+			label for='username' '아이디'
+			input id='username' name='username' placeholder='아이디' value='{{data.username}}'
+		p
+			label for='password' '비밀번호'
+			input id='password' name='password' type='password' placeholder='비밀번호'
+		p
+			label for='isToRememberMe' '로그인 유지'
+			input id='isToRememberMe' name='isToRememberMe' type='checkbox' value='true'
+		p
+			input type='submit' value='로그인'
+
+
+
+
+
+
+
+
+
+
+
+
