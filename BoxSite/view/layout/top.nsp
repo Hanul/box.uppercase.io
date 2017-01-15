@@ -1,4 +1,8 @@
 <%
+	if (self.title === undefined) {
+		self.title = CONFIG.title;
+	}
+	
 	var sessionKey = cookie('session-key');
 	
 	if (sessionKey !== undefined) {
@@ -36,3 +40,18 @@
 	};
 %>
 meta viewport='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
+
+link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/notosanskr.css'
+link rel='stylesheet' href='/Markdown/R/markdown.css'
+link rel='stylesheet' href='/Markdown/R/highlight.css'
+link rel='stylesheet' href='/R/style.less'
+link rel='stylesheet' href='/R/axicon/axicon.min.css'
+
+title '{{self.title}}'
+
+body
+	div.wrapper
+
+
+
+

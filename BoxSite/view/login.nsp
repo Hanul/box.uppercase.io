@@ -1,4 +1,6 @@
 <%
+	self.title = '로그인';
+
 	var data = {};
 	var isNotValid;
 	
@@ -23,37 +25,26 @@
 		pause();
 	}
 %>
-<% include('top.nsp'); %>
-title '로그인'
-body
-	h1 '로그인'
-	form method='POST'
-		
-		<? self.method === 'POST' && isNotValid === true >
-			ul.error
-				li '아이디와 비밀번호를 확인해주시기 바랍니다.'
-		</?>
-		
-		p
-			label for='username' '아이디'
-			input id='username' name='username' placeholder='아이디' value='{{data.username}}'
-		p
-			label for='password' '비밀번호'
-			input id='password' name='password' type='password' placeholder='비밀번호'
-		p
-			label for='isToRememberMe' '로그인 유지'
-			input id='isToRememberMe' name='isToRememberMe' type='checkbox' value='true'
-		p
-			input type='submit' value='로그인'
+<% include('layout/top.nsp'); %>
 
-
-
-
-
-
-
-
-
-
-
-
+		h1 '{{self.title}}'
+		form method='POST'
+			
+			<? self.method === 'POST' && isNotValid === true >
+				ul.error
+					li '아이디와 비밀번호를 확인해주시기 바랍니다.'
+			</?>
+			
+			p
+				label for='username' '아이디'
+				input id='username' name='username' placeholder='아이디' value='{{data.username}}'
+			p
+				label for='password' '비밀번호'
+				input id='password' name='password' type='password' placeholder='비밀번호'
+			p
+				label for='isToRememberMe' '로그인 유지'
+				input id='isToRememberMe' name='isToRememberMe' type='checkbox' value='true'
+			p
+				input type='submit' value='로그인'
+	
+<% include('layout/bottom.nsp'); %>

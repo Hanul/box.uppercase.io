@@ -1,17 +1,36 @@
-<% include('top.nsp'); %>
-title '{{CONFIG.title}}'
-body
-	h1#logo '{{CONFIG.title}}'
-	ul
-		<? self.signedUserData === undefined >
-			li
-				a href='_/join' '회원가입'
-			li
-				a href='_/login' '로그인'
-		</?>
-		<? else >
-			li
-				a href='{{self.signedUserData.screenname}}' '회원 정보'
-			li
-				a href='_/logout' '로그아웃'
-		</?>
+<%
+	var recentBoxDataSet;
+	
+	BoxSite.BoxModel.find({
+		count : 20
+	}, function(boxDataSet) {
+		
+		recentBoxDataSet = boxDataSet;
+		
+		NEXT(recentBoxDataSet, [
+		function(recentBoxData, next) {
+			
+			BoxSite.UserModel.get(recentBoxData.userId, function(userData) {
+				recentBoxData.userData = userData;
+				next();
+			});
+		},
+		
+		function() {
+			return resume;
+		}]);
+	});
+	
+	pause();
+%>
+<% include('layout/top.nsp'); %>
+
+		h1 '{{self.title}}'
+		h2.header '최신 BOX'
+		ul
+			<~ recentBoxDataSet -> recentBoxData >
+				li
+					a href='/{{recentBoxData.userData.screenname}}/{{recentBoxData.name}}' '{{recentBoxData.userData.screenname}}/{{recentBoxData.name}}'
+			</~>
+		
+<% include('layout/bottom.nsp'); %>

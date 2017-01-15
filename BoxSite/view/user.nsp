@@ -1,15 +1,35 @@
 <%
 	var data;
+	var boxDataSet;
+	
 	BoxSite.UserModel.get({
 		filter : {
 			username : self.params.username
 		}
 	}, function(savedData) {
 		data = savedData;
-		resume();
+		
+		BoxSite.BoxModel.find({
+			filter : {
+				userId : data.id
+			}
+		}, function(_boxDataSet) {
+			boxDataSet = _boxDataSet;
+			
+			resume();
+		});
 	});
+	
 	pause();
 %>
-<% include('top.nsp'); %>
-body
-	'{{data.screenname}}'
+<% include('layout/top.nsp'); %>
+
+		h1 '{{data.screenname}}'
+		
+		ul
+			<~ boxDataSet -> boxData >
+				li
+					a href='/{{data.screenname}}/{{boxData.name}}' '{{data.screenname}}/{{boxData.name}}'
+			</~>
+			
+<% include('layout/bottom.nsp'); %>

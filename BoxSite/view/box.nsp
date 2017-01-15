@@ -18,24 +18,33 @@
 			notExists : resume,
 			success : function(savedData) {
 				boxData = savedData;
+				
+				self.title = userData.screenname + '/' + boxData.name;
+				
 				resume();
 			}
 		});
 	});
 	pause();
 %>
-<% include('top.nsp'); %>
-body
-	'{{userData.screenname}}'
-	'{{boxData.name}}'
-	'{{boxData.readmeHTML.replace(/'/g, "\\'")}}'
+<% include('layout/top.nsp'); %>
 
+		h1
+			`<a href="/{{userData.screenname}}">{{userData.screenname}}</a>/{{boxData.name}}`
+			span.version
+				'{{boxData.version}}'
+				
+		h2.header '설치하기'
+		ol
+			li
+				'프로젝트의 DEPENDENCY 파일에 {{userData.screenname}}/{{boxData.name}}을(를) 추가합니다.'
+			li
+				'<a href="https://www.npmjs.com/package/ubm">ubm</a>을 이용해 설치합니다.'
+				span.block
+					'ubm install'
+		
+		h2.header 'README.md'
+		div.markdown-body
+			`{{boxData.readmeHTML}}`
 
-
-
-
-
-
-
-
-
+<% include('layout/bottom.nsp'); %>
