@@ -2,8 +2,6 @@
 			h2
 				a href='/' 'box.uppercase.io'
 			ul
-				li
-					a href='/_/help' '사용방법'
 				<? self.signedUserData === undefined >
 					li
 						a href='/_/join' '회원가입'
