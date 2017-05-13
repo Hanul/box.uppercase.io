@@ -35,13 +35,8 @@
 				'{{boxData.version}}'
 				
 		h2.header '설치하기'
-		ol
-			li
-				'프로젝트의 <span class="block">DEPENDENCY</span> 파일에 <span class="block">{{userData.screenname}}/{{boxData.name}}</span>을(를) 추가합니다.'
-			li
-				'<a href="https://www.npmjs.com/package/ubm">ubm</a>을 이용해 설치합니다.'
-				span.block
-					'ubm install'
+		p
+			'프로젝트의 <span class="block">DEPENDENCY</span> 파일에 <span class="block">{{userData.screenname}}/{{boxData.name}}</span>을(를) 추가합니다.'
 		
 		h2.header 'README.md'
 		div.markdown-body
