@@ -1,13 +1,12 @@
-OVERRIDE(BoxSite.BoxModel, function(origin) {
-	'use strict';
+OVERRIDE(BoxSite.BoxModel, (origin) => {
 
 	BoxSite.BoxModel = OBJECT({
 
-		preset : function() {
+		preset : () => {
 			return origin;
 		},
 
-		init : function(inner, self, params) {
+		init : (inner, self, params) => {
 			
 			// 인덱싱
 			self.getDB().createIndex({
@@ -21,7 +20,7 @@ OVERRIDE(BoxSite.BoxModel, function(origin) {
 			
 			inner.on('create', {
 			
-				before : function(data, next, ret, clientInfo) {
+				before : (data, next, ret, clientInfo) => {
 					
 					if (data.readme === undefined) {
 						data.readmeHTML = undefined;
@@ -37,7 +36,7 @@ OVERRIDE(BoxSite.BoxModel, function(origin) {
 			
 			inner.on('update', {
 			
-				before : function(data, next, ret, clientInfo) {
+				before : (data, next, ret, clientInfo) => {
 					
 					if (data.readme === TO_DELETE) {
 						data.readmeHTML = TO_DELETE;

@@ -1,17 +1,12 @@
 BoxSite.UserModel = OBJECT({
 
-	preset : function() {
-		'use strict';
-
+	preset : () => {
 		return BoxSite.MODEL;
 	},
 
-	params : function() {
-		'use strict';
-
-		var
-		// valid data set
-		validDataSet = {
+	params : () => {
+		
+		let validDataSet = {
 
 			username : {
 				notEmpty : true,

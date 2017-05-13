@@ -1,17 +1,12 @@
-OVERRIDE(BoxSite.UserModel, function(origin) {
-	'use strict';
+OVERRIDE(BoxSite.UserModel, (origin) => {
 
 	BoxSite.UserModel = OBJECT({
 
-		preset : function() {
+		preset : () => {
 			return origin;
 		},
 
-		init : function(inner, self, params) {
-			
-			var
-			// login.
-			login;
+		init : (inner, self, params) => {
 			
 			// 인덱싱
 			self.getDB().createIndex({
@@ -20,13 +15,13 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 			
 			inner.on('create', {
 
-				before : function(data, next, ret) {
+				before : (data, next, ret) => {
 					
 					self.checkIsExists({
 						filter : {
 							username : data.username
 						}
-					}, function(isExists) {
+					}, (isExists) => {
 
 						if (isExists === true) {
 
@@ -58,7 +53,7 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 					return false;
 				},
 
-				after : function(savedData) {
+				after : (savedData) => {
 
 					// 보안상 삭제
 					delete savedData.password;
@@ -67,11 +62,9 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 			
 			inner.on('update', {
 			
-				before : function(data, next, ret, clientInfo) {
+				before : (data, next, ret, clientInfo) => {
 					
-					var
-					// cookies
-					cookies;
+					let cookies;
 					
 					// 보안상 삭제
 					if (clientInfo !== undefined) {
@@ -81,7 +74,7 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 					delete data.isLeft;
 					
 					NEXT([
-					function(next) {
+					(next) => {
 						
 						if (clientInfo === undefined) {
 							next();
@@ -92,7 +85,7 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 							
 							if (cookies['session-key'] !== undefined) {
 								
-								BoxSite.SessionKeyModel.get(cookies['session-key'], function(sessionKeyData) {
+								BoxSite.SessionKeyModel.get(cookies['session-key'], (sessionKeyData) => {
 									
 									if (data.id === sessionKeyData.userId) {
 										next();
@@ -102,10 +95,10 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 						}
 					},
 					
-					function() {
-						return function() {
+					() => {
+						return () => {
 							
-							self.get(data.id, function(userData) {
+							self.get(data.id, (userData) => {
 								
 								// 아이디가 기존과 같고 비밀번호만 바꾸는 경우
 								if (data.username === userData.username) {
@@ -128,7 +121,7 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 										filter : {
 											username : data.username
 										}
-									}, function(isExists) {
+									}, (isExists) => {
 		
 										if (isExists === true) {
 		
@@ -177,26 +170,26 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 					return false;
 				},
 
-				after : function(savedData) {
+				after : (savedData) => {
 
 					// 보안상 삭제
 					delete savedData.password;
 				}
 			});
 			
-			inner.on('get', function(savedData) {
+			inner.on('get', (savedData) => {
 				
 				// 보안상 삭제
 				delete savedData.password;
 			});
 			
-			inner.on('find', EACH(function(savedData) {
+			inner.on('find', EACH((savedData) => {
 				
 				// 보안상 삭제
 				delete savedData.password;
 			}));
 			
-			self.login = login = function(params, callbacks) {
+			let login = self.login = (params, callbacks) => {
 				//REQUIRED: params
 				//REQUIRED: params.username
 				//REQUIRED: params.password
@@ -213,14 +206,10 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 						})
 					}
 				}, {
-					notExists : function() {
+					notExists : () => {
 						callbacks.notValid();
 					},
-					success : function(userData) {
-
-						var
-						// key
-						key;
+					success : (userData) => {
 						
 						// 탈퇴 유저는 로그인 불가
 						if (userData.isLeft === true) {
@@ -231,7 +220,7 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 
 							BoxSite.SessionKeyModel.create({
 								userId : userData.id
-							}, function(sessionKeyData) {
+							}, (sessionKeyData) => {
 
 								self.updateNoHistory({
 									id : userData.id,
@@ -239,7 +228,7 @@ OVERRIDE(BoxSite.UserModel, function(origin) {
 									$inc : {
 										loginCount : 1
 									}
-								}, function(savedData) {
+								}, (savedData) => {
 									callbacks.success(savedData, sessionKeyData.id);
 								});
 							});

@@ -1,41 +1,21 @@
 BoxSite.MAIN = METHOD({
 
-	run : function(addRequestListener, addPreprocessor) {
-		'use strict';
+	run : (addRequestListener, addPreprocessor) => {
 		
-		var
-		//IMPORT: Less
-		Less = require('less'),
+		let Less = require('less');
 		
-		// box matcher
-		boxMatcher = URI_MATCHER('{username}/{boxName}'),
+		let boxMatcher = URI_MATCHER('{username}/{boxName}');
+		let userMatcher = URI_MATCHER('{username}');
 		
-		// user matcher
-		userMatcher = URI_MATCHER('{username}'),
-		
-		// nsp request listener
-		nspRequestListener = NSP_BRIDGE({
+		let nspRequestListener = NSP.Bridge({
 			rootPath : './BoxSite/view',
-			templateEngine : SML
+			templateEngine : SML.Compile
 		}).requestListener;
 		
-		addRequestListener(function(requestInfo, response, replaceRootPath, next) {
+		addRequestListener((requestInfo, response, replaceRootPath, next) => {
 			
-			var
-			// uri
-			uri = requestInfo.uri,
-			
-			// matcher result
-			matcherResult = boxMatcher.check(uri),
-			
-			// data
-			data,
-			
-			// username
-			username,
-			
-			// password
-			password;
+			let uri = requestInfo.uri;
+			let matcherResult = boxMatcher.check(uri);
 			
 			if (matcherResult.checkIsMatched() === true) {
 				if (matcherResult.getURIParams().username === '_') {
@@ -44,16 +24,16 @@ BoxSite.MAIN = METHOD({
 					// BOX 출시
 					if (requestInfo.uri === 'publish' && requestInfo.data !== undefined) {
 						
-						data = requestInfo.data;
-						username = data.username;
-						password = data.password;
+						let data = requestInfo.data;
+						let username = data.username;
+						let password = data.password;
 						
 						if (username !== undefined && password !== undefined) {
 							
 							username = username.toLowerCase();
 							
 							NEXT([
-							function(next) {
+							(next) => {
 								
 								BoxSite.UserModel.get({
 									filter : {
@@ -64,7 +44,7 @@ BoxSite.MAIN = METHOD({
 										})
 									}
 								}, {
-									notExists : function() {
+									notExists : () => {
 										response(STRINGIFY({
 											validErrors : {
 												password : {
@@ -77,8 +57,8 @@ BoxSite.MAIN = METHOD({
 								});
 							},
 							
-							function(next) {
-								return function(userData) {
+							(next) => {
+								return (userData) => {
 									
 									BoxSite.BoxModel.get({
 										filter : {
@@ -86,7 +66,7 @@ BoxSite.MAIN = METHOD({
 											name : data.boxName
 										}
 									}, {
-										notExists : function() {
+										notExists : () => {
 											
 											BoxSite.BoxModel.create({
 												userId : userData.id,
@@ -96,7 +76,7 @@ BoxSite.MAIN = METHOD({
 												readme : data.readme,
 												dependency : data.dependency
 											}, {
-												notValid : function(validErrors) {
+												notValid : (validErrors) => {
 													response(STRINGIFY({
 														validErrors : validErrors
 													}));
@@ -105,7 +85,7 @@ BoxSite.MAIN = METHOD({
 											});
 										},
 										
-										success : function(boxData) {
+										success : (boxData) => {
 											
 											if (boxData.version === data.version) {
 												response(STRINGIFY({
@@ -124,7 +104,7 @@ BoxSite.MAIN = METHOD({
 													readme : data.readme,
 													dependency : data.dependency
 												}, {
-													notValid : function(validErrors) {
+													notValid : (validErrors) => {
 														response(STRINGIFY({
 															validErrors : validErrors
 														}));
@@ -137,8 +117,8 @@ BoxSite.MAIN = METHOD({
 								};
 							},
 							
-							function() {
-								return function() {
+							() => {
+								return () => {
 									response();
 								};
 							}]);
@@ -150,22 +130,22 @@ BoxSite.MAIN = METHOD({
 					// BOX 정보 가져오기
 					if (requestInfo.uri === 'info' && requestInfo.data !== undefined) {
 						
-						data = requestInfo.data;
-						username = data.username;
+						let data = requestInfo.data;
+						let username = data.username;
 						
 						if (username !== undefined) {
 							
 							username = username.toLowerCase();
 							
 							NEXT([
-							function(next) {
+							(next) => {
 								
 								BoxSite.UserModel.get({
 									filter : {
 										username : username
 									}
 								}, {
-									notExists : function() {
+									notExists : () => {
 										response(STRINGIFY({
 											validErrors : {
 												username : {
@@ -178,8 +158,8 @@ BoxSite.MAIN = METHOD({
 								});
 							},
 							
-							function() {
-								return function(userData) {
+							() => {
+								return (userData) => {
 									
 									BoxSite.BoxModel.get({
 										filter : {
@@ -187,7 +167,7 @@ BoxSite.MAIN = METHOD({
 											name : data.boxName
 										}
 									}, {
-										notExists : function() {
+										notExists : () => {
 											
 											response(STRINGIFY({
 												validErrors : {
@@ -198,7 +178,7 @@ BoxSite.MAIN = METHOD({
 											}));
 										},
 										
-										success : function(boxData) {
+										success : (boxData) => {
 											
 											response(STRINGIFY({
 												boxData : {
@@ -244,9 +224,9 @@ BoxSite.MAIN = METHOD({
 		
 		addPreprocessor({
 			extension : 'less',
-			preprocessor : function(content, response) {
+			preprocessor : (content, response) => {
 				
-				Less.render(content, function(error, output) {
+				Less.render(content, (error, output) => {
 					response({
 						content : output.css,
 						contentType : 'text/css',
