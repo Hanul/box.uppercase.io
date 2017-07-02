@@ -49,7 +49,24 @@ link rel='stylesheet' href='/R/css/font-awesome.min.css'
 title '{{self.title}}'
 
 body
-	div.wrapper
+	header
+		ul
+			li
+				a href='/' 'BOX 저장소'
+		ul
+			<? self.signedUserData === undefined >
+				li
+					a href='/_/join' '회원가입'
+				li
+					a href='/_/login' '로그인'
+			</?>
+			<? else >
+				li
+					a href='/{{self.signedUserData.screenname}}' '{{self.signedUserData.screenname}}'
+				li
+					a href='/_/logout' '로그아웃'
+			</?>
+	main
 
 
 

@@ -31,14 +31,14 @@
 
 		h1
 			`<a href="/{{userData.screenname}}">{{userData.screenname}}</a>/{{boxData.name}}`
-			span.version
+			span
 				'{{boxData.version}}'
 				
-		h2.header '설치하기'
+		h2 '설치하기'
 		p
 			'프로젝트의 <span class="block">DEPENDENCY</span> 파일에 <span class="block">{{userData.screenname}}/{{boxData.name}}</span>을(를) 추가합니다.'
 		
-		h2.header 'README.md'
+		h2 'README.md'
 		div.markdown-body
 			`{{boxData.readmeHTML}}`
 

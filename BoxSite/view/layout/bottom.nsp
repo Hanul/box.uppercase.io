@@ -1,20 +1,3 @@
-		div
-			h2
-				a href='/' 'box.uppercase.io'
-			ul
-				<? self.signedUserData === undefined >
-					li
-						a href='/_/join' '회원가입'
-					li
-						a href='/_/login' '로그인'
-				</?>
-				<? else >
-					li
-						a href='/{{self.signedUserData.screenname}}' '{{self.signedUserData.screenname}}'
-					li
-						a href='/_/logout' '로그아웃'
-				</?>
-		h2 '사이트 문의'
-		ul
-			li
-				a href='mailto:hanul@hanul.me' 'hanul@hanul.me'
+	footer
+		'사이트 문의'
+		a href='mailto:hanul@hanul.me' 'hanul@hanul.me'

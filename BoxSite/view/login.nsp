@@ -31,7 +31,7 @@
 		form method='POST'
 			
 			<? self.method === 'POST' && isNotValid === true >
-				ul.error
+				ul
 					li '아이디와 비밀번호를 확인해주시기 바랍니다.'
 			</?>
 			
