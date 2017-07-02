@@ -1,4 +1,4 @@
-		div#topbar
+		div
 			h2
 				a href='/' 'box.uppercase.io'
 			ul
@@ -14,7 +14,7 @@
 					li
 						a href='/_/logout' '로그아웃'
 				</?>
-		h2.header '사이트 문의'
+		h2 '사이트 문의'
 		ul
 			li
 				a href='mailto:hanul@hanul.me' 'hanul@hanul.me'
