@@ -26,6 +26,7 @@
 
 		h1 '{{data.screenname}}'
 		
+		h2 'BOX 목록'
 		ul
 			<~ boxDataSet -> boxData >
 				li
