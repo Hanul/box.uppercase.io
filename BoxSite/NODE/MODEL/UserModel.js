@@ -17,13 +17,13 @@ OVERRIDE(BoxSite.UserModel, (origin) => {
 
 				before : (data, next, ret) => {
 					
-					self.checkIsExists({
+					self.checkExists({
 						filter : {
 							username : data.username
 						}
-					}, (isExists) => {
+					}, (exists) => {
 
-						if (isExists === true) {
+						if (exists === true) {
 
 							ret({
 								validErrors : {
@@ -117,13 +117,13 @@ OVERRIDE(BoxSite.UserModel, (origin) => {
 								// 아이디를 변경하는 경우
 								else if (data.username !== undefined) {
 		
-									self.checkIsExists({
+									self.checkExists({
 										filter : {
 											username : data.username
 										}
-									}, (isExists) => {
+									}, (exists) => {
 		
-										if (isExists === true) {
+										if (exists === true) {
 		
 											ret({
 												validErrors : {
@@ -133,7 +133,7 @@ OVERRIDE(BoxSite.UserModel, (origin) => {
 												}
 											});
 		
-										} else if (isExists === false) {
+										} else {
 											
 											// 비밀번호도 바꾸는 경우
 											if (data.password !== undefined) {

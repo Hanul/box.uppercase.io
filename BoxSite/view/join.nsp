@@ -69,8 +69,6 @@
 			
 			div
 				label for='username' '아이디'
-				p
-					'대소문자를 구별합니다.'
 				input id='username' name='username' placeholder='아이디' value='{{data.screenname}}'
 			div
 				label for='password' '비밀번호'
