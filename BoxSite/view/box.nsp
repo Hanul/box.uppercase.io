@@ -39,7 +39,7 @@
 			'프로젝트의 <span class="block">DEPENDENCY</span> 파일에 <span class="block">{{userData.screenname}}/{{boxData.name}}</span>을(를) 추가합니다.'
 		
 		h2 'README.md'
-		div.markdown-body
-			`{{boxData.readmeHTML}}`
+		div
+			`{{boxData.readme.replace(/`/g, '\\`').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br>')}}`
 
 <% include('layout/bottom.nsp'); %>
