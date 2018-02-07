@@ -1,12 +1,12 @@
 <%
-	var userData;
-	var boxData;
+	let userData;
+	let boxData;
 	
 	BoxSite.UserModel.get({
 		filter : {
 			username : self.params.username
 		}
-	}, function(savedData) {
+	}, (savedData) => {
 		userData = savedData;
 		
 		BoxSite.BoxModel.get({
@@ -16,7 +16,7 @@
 			}
 		}, {
 			notExists : resume,
-			success : function(savedData) {
+			success : (savedData) => {
 				boxData = savedData;
 				
 				self.title = userData.screenname + '/' + boxData.name;
@@ -28,7 +28,12 @@
 	pause();
 %>
 <% include('layout/top.nsp'); %>
-
+		
+		<? boxData === undefined >
+		p
+			'BOX가 존재하지 않습니다.'
+		</?>
+		<? else>
 		h1
 			`<a href="/{{userData.screenname}}">{{userData.screenname}}</a>/{{boxData.name}}`
 			span
@@ -39,7 +44,8 @@
 			'프로젝트의 <span class="block">DEPENDENCY</span> 파일에 <span class="block">{{userData.screenname}}/{{boxData.name}}</span>을(를) 추가합니다.'
 		
 		h2 'README.md'
-		div
+		div.readme
 			`{{boxData.readme.replace(/`/g, '\\`').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br>')}}`
+		</?>
 
 <% include('layout/bottom.nsp'); %>

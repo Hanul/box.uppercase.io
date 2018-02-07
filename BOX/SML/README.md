@@ -69,6 +69,13 @@ body
 </html>
 ```
 
+## `textarea`나 `pre`
+`textarea`나 `pre`와 같이 내용에 엔터가 자동으로 들어가서는 안 되는 태그들이 존재합니다. 그런 경우 다음과 같이 한줄로 내용을 입력합니다.
+```sml
+div
+	textarea name='content' placeholder='글 내용' '{{data.content}}'
+```
+
 ## 라이센스
 [MIT](LICENSE)
 

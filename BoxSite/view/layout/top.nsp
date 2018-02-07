@@ -44,6 +44,7 @@ meta viewport='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum
 link rel='stylesheet' href='/Markdown/R/markdown.css'
 link rel='stylesheet' href='/Markdown/R/highlight.css'
 link rel='stylesheet' href='/R/tagstyle.less'
+link rel='stylesheet' href='/R/style.less'
 
 title '{{self.title}}'
 
