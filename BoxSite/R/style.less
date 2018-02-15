@@ -1,7 +1,7 @@
 @import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
 
-@mobile: ~'(max-width: 1149px)';
-@pc: ~'(min-width: 1150px)';
+@mobile: ~'(max-width: 799px)';
+@pc: ~'(min-width: 800px)';
 
 body, html {
 	font-family: 'Noto Sans KR';
@@ -24,6 +24,30 @@ header {
 	background-color: #292b2c;
 	font-size: 16px;
 	height: 56px;
+	
+	.search {
+		@media @mobile {
+			display: none;
+		}
+		
+		margin-left: 12px;
+		float: left;
+		padding-top: 12px;
+		
+		input {
+			background-color: #444;
+			padding: 5px 8px;
+			border-radius: 3px;
+			border: none;
+			color: #fff;
+		}
+		button {
+			padding: 10px;
+			background: transparent;
+			border: none;
+			color: #fff;
+		}
+	}
 	
 	.title {
 		@media @pc {
@@ -82,6 +106,29 @@ header {
 					&:hover {
 						text-decoration: none;
 					}
+				}
+			}
+			
+			.menu-search {
+				@media @pc {
+					display: none;
+				}
+				
+				margin-left: 16px;
+				padding-top: 12px;
+				
+				input {
+					background-color: #444;
+					padding: 5px 8px;
+					border-radius: 3px;
+					border: none;
+					color: #fff;
+				}
+				button {
+					padding: 10px;
+					background: transparent;
+					border: none;
+					color: #fff;
 				}
 			}
 		}

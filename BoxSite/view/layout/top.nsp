@@ -54,9 +54,18 @@ body
 	header
 		h1.title
 			a href='/' 'BOX 저장소'
+		form.search
+			input placeholder='BOX 검색'
+			button type='submit'
+				i.fas.fa-search
 		div.dropdown
 			i.fas.fa-bars
 			ul.menu
+				li
+					form.menu-search
+						input placeholder='BOX 검색'
+						button type='submit'
+							i.fas.fa-search
 				<? self.signedUserData === undefined >
 					li
 						a href='/_/join' '회원가입'
