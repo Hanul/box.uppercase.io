@@ -41,31 +41,34 @@
 %>
 meta viewport='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
 
-link rel='stylesheet' href='/Markdown/R/markdown.css'
-link rel='stylesheet' href='/Markdown/R/highlight.css'
-link rel='stylesheet' href='/R/tagstyle.less'
+link rel='stylesheet' href='/R/reset.css'
+link rel='stylesheet' href='/R/markdown.css'
+link rel='stylesheet' href='/R/highlight.css'
 link rel='stylesheet' href='/R/style.less'
+
+script src='https://use.fontawesome.com/releases/v5.0.6/js/all.js'
 
 title '{{self.title}}'
 
 body
 	header
-		ul
-			li
-				a href='/' 'BOX 저장소'
-		ul
-			<? self.signedUserData === undefined >
-				li
-					a href='/_/join' '회원가입'
-				li
-					a href='/_/login' '로그인'
-			</?>
-			<? else >
-				li
-					a href='/{{self.signedUserData.screenname}}' '{{self.signedUserData.screenname}}'
-				li
-					a href='/_/logout' '로그아웃'
-			</?>
+		h1.title
+			a href='/' 'BOX 저장소'
+		div.dropdown
+			i.fas.fa-bars
+			ul.menu
+				<? self.signedUserData === undefined >
+					li
+						a href='/_/join' '회원가입'
+					li
+						a href='/_/login' '로그인'
+				</?>
+				<? else >
+					li
+						a href='/{{self.signedUserData.screenname}}' '{{self.signedUserData.screenname}}'
+					li
+						a href='/_/logout' '로그아웃'
+				</?>
 	main
 
 

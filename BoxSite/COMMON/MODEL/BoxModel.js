@@ -47,6 +47,8 @@ BoxSite.BoxModel = OBJECT({
 				}
 			},
 			
+			readmeHTML : true,
+			
 			downloadCount : {
 				notEmpty : true,
 				integer : true

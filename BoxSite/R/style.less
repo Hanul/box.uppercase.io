@@ -1,7 +1,164 @@
-.readme {
-	border: 1px solid #ccc;
+@import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
+
+@mobile: ~'(max-width: 1149px)';
+@pc: ~'(min-width: 1150px)';
+
+body, html {
+	font-family: 'Noto Sans KR';
+}
+
+a {
+	color: #337ab7;
+	text-decoration: none;
+	&:hover {
+		color: #23527c;
+		text-decoration: underline;
+	}
+}
+
+pre {
+	font-family: 'Noto Sans KR';
+}
+
+header {
+	background-color: #292b2c;
+	font-size: 16px;
+	height: 56px;
+	
+	.title {
+		@media @pc {
+			margin-left: 10px;
+		}
+		float: left;
+		font-weight: bold;
+		a {
+			float: left;
+			padding: 16px 20px;
+			color: #fff;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+	
+	.dropdown {
+		float: right;
+		
+		.fa-bars {
+			@media @pc {
+				display: none;
+			}
+			@media @mobile {
+				float: right;
+				color: #fff;
+				padding: 20px;
+			}
+		}
+		
+		.menu {
+			@media @pc {
+				display: block;
+			}
+			@media @mobile {
+				background-color: #373a3c;
+				display: none;
+				position: absolute;
+				top: 56px;
+				right: 0;
+			}
+			
+			padding: 0 16px;
+			
+			li {
+				@media @pc {
+					float: left;
+				}
+				list-style: none;
+				
+				a {
+					display: block;
+					padding: 16px;
+					color: #fff;
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		
+		&:hover .menu {
+			display: block;
+		}
+	}
+}
+
+main {
+	width: 1110px;
 	padding: 15px;
-	overflow-y: scroll;
-	height: 300px;
-	color: #666;
+	margin: auto;
+	
+	@media @mobile {
+		width: 90%;
+		padding: 15px 0;
+	}
+	
+	h1 {
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	form {
+		div {
+			margin-bottom: 12px
+		}
+		label {
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		input:not([type='checkbox']) {
+			margin-top: 5px;
+			display: block;
+			width: 100%;
+			padding: 10px 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			
+			@media @mobile {
+				width: 90%;
+				padding: 10px 0;
+			}
+			
+			&[type='submit'] {
+				font-family: 'Noto Sans KR';
+				width: auto;
+				cursor: pointer;
+				background-color: #fff;
+				&:hover {
+					background-color: #d4d4d4;
+				}
+			}
+		}
+	}
+}
+
+footer {
+	border-top: 1px solid #ddd;
+	width: 1110px;
+	margin: auto;
+	padding: 16px 0;
+	
+	@media @mobile {
+		width: 90%;
+		padding: 16px 0;
+	}
+}
+
+// Markdown을 사용하는 경우
+.markdown-body {
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 15px;
+	font-family: 'Noto Sans KR';
+	font-size: 14px;
 }
